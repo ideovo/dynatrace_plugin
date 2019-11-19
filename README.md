@@ -22,7 +22,7 @@
 ## BoneCP控件(V )
 
 ## HikariCP控件(V2.3.13)
-<font color=red>必须RegisterMbeans属性设定为true</font>
+***必须RegisterMbeans属性设定为true***
 ### 1. jmx监控属性说明 com.zaxxer.hikari:type=Pool (HikariPool-0)
 - **IdleConnections**: 未使用的连接数
 - **ActiveConnections**: 连接池中使用的连接数
