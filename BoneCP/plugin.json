@@ -1,0 +1,122 @@
+{
+  "version": "0.01",
+  "name": "com.achieve.jmx.boneCP-Ver1",
+  "type": "JMX",
+  "entity": "PROCESS_GROUP_INSTANCE",
+  "metricGroup": "tech.boneCP"
+  "processTypes": [10, 12, 13, 16, 17, 18],
+    "configUI" : {
+        "displayName": "Bone Connection Pool"
+    },
+  "metrics": [
+    {
+      "timeseries": {
+        "key": "totalactive",
+        "displayname" : "active connection count",
+        "unit": "Count",
+        "dimensions": [
+          "rx_pid",
+          "ConnectionPoolName"
+        ]
+      },
+      "source": {
+        "domain": "com.jolbox.bonecp",
+        "keyProperties": {
+          "type": "BoneCP"
+        },
+        "allowAdditionalKeys": true,
+        "attribute": "totalLeased",
+        "calculateDelta": false,
+        "calculateRate": false,
+        "aggregation": "MAX",
+        "splitting": {
+            "name": "ConnectionPoolName",
+            "type": "keyProperty",
+            "keyProperty": "type"
+        }
+      }
+    },
+    {
+      "timeseries": {
+        "key": "totalIdle",
+        "displayname" : "idle connection count",
+        "unit": "Count",
+        "dimensions": [
+          "rx_pid",
+          "ConnectionPoolName"
+        ]
+      },
+      "source": {
+        "domain": "com.jolbox.bonecp",
+        "keyProperties": {
+          "type": "BoneCP"
+        },
+        "allowAdditionalKeys": true,
+        "attribute": "totalFree",
+        "calculateDelta": false,
+        "calculateRate": false,
+        "aggregation": "MAX",
+        "splitting": {
+            "name": "ConnectionPoolName",
+            "type": "keyProperty",
+            "keyProperty": "type"
+        }
+      }
+    },
+    {
+      "timeseries": {
+        "key": "totalCCon",
+        "displayname" : "create connection count",
+        "unit": "Count",
+        "dimensions": [
+          "rx_pid",
+          "ConnectionPoolName"
+        ]
+      },
+      "source": {
+        "domain": "com.jolbox.bonecp",
+        "keyProperties": {
+          "type": "BoneCP"
+        },
+        "allowAdditionalKeys": true,
+        "attribute": "totalCreatedConnections",
+        "calculateDelta": false,
+        "calculateRate": false,
+        "aggregation": "MAX",
+        "splitting": {
+            "name": "ConnectionPoolName",
+            "type": "keyProperty",
+            "keyProperty": "type"
+        }
+      }
+    }
+  ],
+    "ui": {
+      "keycharts": [
+      {
+        "group": "Connection Pool",
+        "title": "Bone Connection size",
+        "series": [
+         {
+                "key": "totalactive",
+                "displayname": "Active Connection size",
+                "color": "rgba(101,152,186,0.4)",
+                "seriestype": "line"
+         },
+         {
+                "key": "totalIdle",
+                "displayname": "Idle Connection size",
+                "seriestype": "line",
+                "color" : "#bdc9ff"
+          },
+          {
+                "key": "totalCCon",
+                "displayname": "created connections size",
+                "color": "#FF6666",
+                "seriestype": "bar"
+          }
+        ]
+      }
+      ]
+    }
+}

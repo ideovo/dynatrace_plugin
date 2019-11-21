@@ -19,9 +19,16 @@
 - **destroyCount**:  被关闭的空闲时间超阈值连接 + active运行超过阈值的连接数，默认RemoveAbandoned为false(不处理)即不处理active的连接。
 - **Name**: 当前数据源名称 （默认为DataSource-生成ID）
 
-## BoneCP控件(V )
+## BoneCP控件(V0.8.0)
+### 1. jmx监控属性说明
+- **ConnectionWaitTimeAvg**: Return the average time it takes for a getConnection request to be services (in ms).
+- **ConnectionsRequested**: Returns the connectionsRequested field.
+- **TotalCreatedConnections**: Return total number of connections created in all partitions.
+- **TotalFree**: Return the number of free connections available to an application right away (excluding connections that can be created dynamically)
+- **TotalLeased**: Return total number of connections currently in use by an application
 
-## HikariCP控件(V2.3.13)
+
+## HikariCP控件(V2.1.0以上)
 ***必须RegisterMbeans属性设定为true***
 ### 1. jmx监控属性说明 com.zaxxer.hikari:type=Pool (HikariPool-0)
 - **IdleConnections**: 未使用的连接数
