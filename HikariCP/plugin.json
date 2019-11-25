@@ -1,12 +1,12 @@
 {
   "version": "0.01",
-  "name": "custom.jmx.boneCP-Ver1",
+  "name": "custom.jmx.HikariCP-Ver1",
   "type": "JMX",
   "entity": "PROCESS_GROUP_INSTANCE",
-  "metricGroup": "tech.boneCP",
+  "metricGroup": "tech.hikariCP",
   "processTypes": [10, 12, 13, 16, 17, 18],
     "configUI" : {
-        "displayName": "Bone Connection Pool"
+        "displayName": "Hikari Connection Pool"
     },
   "metrics": [
     {
@@ -20,12 +20,12 @@
         ]
       },
       "source": {
-        "domain": "com.jolbox.bonecp",
+        "domain": "com.zaxxer.hikari",
         "keyProperties": {
-          "type": "BoneCP"
+          "type": "Pool*"
         },
         "allowAdditionalKeys": true,
-        "attribute": "totalLeased",
+        "attribute": "activeConnections",
         "calculateDelta": false,
         "calculateRate": false,
         "aggregation": "MAX",
@@ -47,12 +47,12 @@
         ]
       },
       "source": {
-        "domain": "com.jolbox.bonecp",
+        "domain": "com.zaxxer.hikari",
         "keyProperties": {
-          "type": "BoneCP"
+          "type": "Pool*"
         },
         "allowAdditionalKeys": true,
-        "attribute": "totalFree",
+        "attribute": "IdleConnections",
         "calculateDelta": false,
         "calculateRate": false,
         "aggregation": "MAX",
@@ -66,7 +66,7 @@
     {
       "timeseries": {
         "key": "totalCCon",
-        "displayname" : "create connection count",
+        "displayname" : "total connection count",
         "unit": "Count",
         "dimensions": [
           "rx_pid",
@@ -74,12 +74,12 @@
         ]
       },
       "source": {
-        "domain": "com.jolbox.bonecp",
+        "domain": "com.zaxxer.hikari",
         "keyProperties": {
-          "type": "BoneCP"
+          "type": "Pool*"
         },
         "allowAdditionalKeys": true,
-        "attribute": "totalCreatedConnections",
+        "attribute": "TotalConnections",
         "calculateDelta": false,
         "calculateRate": false,
         "aggregation": "MAX",
@@ -95,7 +95,7 @@
       "keycharts": [
       {
         "group": "Connection Pool",
-        "title": "Bone Connection size",
+        "title": "Hikari Connection size",
         "series": [
          {
                 "key": "totalactive",
@@ -111,7 +111,7 @@
           },
           {
                 "key": "totalCCon",
-                "displayname": "created connections size",
+                "displayname": "total connections size",
                 "color": "#FF6666",
                 "seriestype": "bar"
           }
