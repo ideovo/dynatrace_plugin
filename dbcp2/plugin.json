@@ -1,0 +1,230 @@
+{
+  "version": "1.0",
+  "name": "custom.jmx.dbcp2-Ver1",
+  "type": "JMX",
+  "entity": "PROCESS_GROUP_INSTANCE",
+  "metricGroup": "tech.dbcp2",
+  "processTypes": [10, 12, 13, 16, 17, 18],
+    "configUI" : {
+        "displayName": "dbcp2 Connection Pool"
+    },
+  "metrics": [
+    {
+      "timeseries": {
+        "key": "basictotalactive",
+        "displayname" : "active connection count",
+        "unit": "Count",
+        "dimensions": [
+          "rx_pid",
+          "ConnectionPoolName"
+        ]
+      },
+      "source": {
+        "domain": "org.apache.commons.dbcp2",
+        "keyProperties": {
+          "type": "basic"
+        },
+        "allowAdditionalKeys": true,
+        "attribute": "numActive",
+        "calculateDelta": false,
+        "calculateRate": false,
+        "aggregation": "MAX",
+        "splitting": {
+            "name": "ConnectionPoolName",
+            "type": "keyProperty",
+            "keyProperty": "type"
+        }
+      }
+    },
+    {
+      "timeseries": {
+        "key": "pooltotalactive",
+        "displayname" : "active connection count",
+        "unit": "Count",
+        "dimensions": [
+          "rx_pid",
+          "ConnectionPoolName"
+        ]
+      },
+      "source": {
+        "domain": "org.apache.commons.pool2",
+        "keyProperties": {
+          "type": "GenericObjectPool",
+          "name": "pool*"
+        },
+        "allowAdditionalKeys": true,
+        "attribute": "numActive",
+        "calculateDelta": false,
+        "calculateRate": false,
+        "aggregation": "MAX",
+        "splitting": {
+            "name": "ConnectionPoolName",
+            "type": "keyProperty",
+            "keyProperty": "name"
+        }
+      }
+    },
+    {
+      "timeseries": {
+        "key": "basictotalIdle",
+        "displayname" : "idle connection count",
+        "unit": "Count",
+        "dimensions": [
+          "rx_pid",
+          "ConnectionPoolName"
+        ]
+      },
+      "source": {
+        "domain": "org.apache.commons.dbcp2",
+        "keyProperties": {
+          "type": "basic"
+        },
+        "allowAdditionalKeys": true,
+        "attribute": "numIdle",
+        "calculateDelta": false,
+        "calculateRate": false,
+        "aggregation": "MAX",
+        "splitting": {
+            "name": "ConnectionPoolName",
+            "type": "keyProperty",
+            "keyProperty": "type"
+        }
+      }
+    },
+    {
+      "timeseries": {
+        "key": "pooltotalIdle",
+        "displayname" : "idle connection count",
+        "unit": "Count",
+        "dimensions": [
+          "rx_pid",
+          "ConnectionPoolName"
+        ]
+      },
+      "source": {
+        "domain": "org.apache.commons.pool2",
+        "keyProperties": {
+          "type": "GenericObjectPool",
+          "name": "pool*"
+        },
+        "allowAdditionalKeys": true,
+        "attribute": "numIdle",
+        "calculateDelta": false,
+        "calculateRate": false,
+        "aggregation": "MAX",
+        "splitting": {
+            "name": "ConnectionPoolName",
+            "type": "keyProperty",
+            "keyProperty": "name"
+        }
+      }
+    },
+    {
+      "timeseries": {
+        "key": "basictotalCCon",
+        "displayname" : "total connection count",
+        "unit": "Count",
+        "dimensions": [
+          "rx_pid",
+          "ConnectionPoolName"
+        ]
+      },
+      "source": {
+        "domain": "org.apache.commons.dbcp2",
+        "keyProperties": {
+          "type": "basic"
+        },
+        "allowAdditionalKeys": true,
+        "attribute": "maxTotal",
+        "calculateDelta": false,
+        "calculateRate": false,
+        "aggregation": "MAX",
+        "splitting": {
+            "name": "ConnectionPoolName",
+            "type": "keyProperty",
+            "keyProperty": "type"
+        }
+      }
+    },
+    {
+      "timeseries": {
+        "key": "pooltotalCCon",
+        "displayname" : "total connection count",
+        "unit": "Count",
+        "dimensions": [
+          "rx_pid",
+          "ConnectionPoolName"
+        ]
+      },
+      "source": {
+        "domain": "org.apache.commons.pool2",
+        "keyProperties": {
+          "type": "GenericObjectPool",
+          "name": "pool*"
+        },
+        "allowAdditionalKeys": true,
+        "attribute": "maxTotal",
+        "calculateDelta": false,
+        "calculateRate": false,
+        "aggregation": "MAX",
+        "splitting": {
+            "name": "ConnectionPoolName",
+            "type": "keyProperty",
+            "keyProperty": "name"
+        }
+      }
+    }
+  ],
+    "ui": {
+      "keycharts": [
+      {
+        "group": "Connection Pool",
+        "title": "Dbcp2 BasicDataSource Connection size",
+        "series": [
+         {
+                "key": "basictotalactive",
+                "displayname": "Active Connection size",
+                "color": "rgba(101,152,186,0.4)",
+                "seriestype": "line"
+         },
+         {
+                "key": "basictotalIdle",
+                "displayname": "Idle Connection size",
+                "seriestype": "line",
+                "color" : "#bdc9ff"
+          },
+          {
+                "key": "basictotalCCon",
+                "displayname": "Total connections size",
+                "color": "#FF6666",
+                "seriestype": "bar"
+          }
+        ]
+      },
+      {
+        "group": "Connection Pool",
+        "title": "Dbcp2 PoolingDataSource Connection size",
+        "series": [
+         {
+                "key": "pooltotalactive",
+                "displayname": "Active Connection size",
+                "color": "rgba(101,152,186,0.4)",
+                "seriestype": "line"
+         },
+         {
+                "key": "pooltotalIdle",
+                "displayname": "Idle Connection size",
+                "seriestype": "line",
+                "color" : "#bdc9ff"
+          },
+          {
+                "key": "pooltotalCCon",
+                "displayname": "Total connections size",
+                "color": "#FF6666",
+                "seriestype": "bar"
+          }
+        ]
+      }
+      ]
+    }
+}

@@ -1,0 +1,125 @@
+{
+  "version": "0.01",
+  "name": "custom.jmx.druid-Ver1",
+  "type": "JMX",
+  "entity": "PROCESS_GROUP_INSTANCE",
+  "metricGroup": "tech.druid",
+  "processTypes": [10, 12, 13, 16, 17, 18],
+    "configUI" : {
+        "displayName": "druid Connection Pool"
+    },
+  "metrics": [
+    {
+      "timeseries": {
+        "key": "totalactive",
+        "displayname" : "active connection count",
+        "unit": "Count",
+        "dimensions": [
+          "rx_pid",
+          "ConnectionPoolName"
+        ]
+      },
+      "source": {
+        "domain": "com.alibaba.druid",
+        "keyProperties": {
+          "type": "DruidDataSource",
+          "id": "*"
+        },
+        "allowAdditionalKeys": true,
+        "attribute": "activeCount",
+        "calculateDelta": false,
+        "calculateRate": false,
+        "aggregation": "MAX",
+        "splitting": {
+            "name": "ConnectionPoolName",
+            "type": "keyProperty",
+            "keyProperty": "id"
+        }
+      }
+    },
+    {
+      "timeseries": {
+        "key": "totalIdle",
+        "displayname" : "idle connection count",
+        "unit": "Count",
+        "dimensions": [
+          "rx_pid",
+          "ConnectionPoolName"
+        ]
+      },
+      "source": {
+        "domain": "com.alibaba.druid",
+        "keyProperties": {
+          "type": "DruidDataSource",
+          "id": "*"
+        },
+        "allowAdditionalKeys": true,
+        "attribute": "poolingCount",
+        "calculateDelta": false,
+        "calculateRate": false,
+        "aggregation": "MAX",
+        "splitting": {
+            "name": "ConnectionPoolName",
+            "type": "keyProperty",
+            "keyProperty": "id"
+        }
+      }
+    },
+    {
+      "timeseries": {
+        "key": "destroyCount",
+        "displayname" : "total destroy count",
+        "unit": "Count",
+        "dimensions": [
+          "rx_pid",
+          "ConnectionPoolName"
+        ]
+      },
+      "source": {
+        "domain": "com.alibaba.druid",
+        "keyProperties": {
+          "type": "DruidDataSource",
+          "id": "*"
+        },
+        "allowAdditionalKeys": true,
+        "attribute": "destroyCount",
+        "calculateDelta": false,
+        "calculateRate": false,
+        "aggregation": "MAX",
+        "splitting": {
+            "name": "ConnectionPoolName",
+            "type": "keyProperty",
+            "keyProperty": "id"
+        }
+      }
+    }
+  ],
+    "ui": {
+      "keycharts": [
+      {
+        "group": "Connection Pool",
+        "title": "Druid Connection size",
+        "series": [
+         {
+                "key": "totalactive",
+                "displayname": "Active Connection size",
+                "color": "rgba(101,152,186,0.4)",
+                "seriestype": "line"
+         },
+         {
+                "key": "totalIdle",
+                "displayname": "Idle Connection size",
+                "seriestype": "line",
+                "color" : "#bdc9ff"
+          },
+          {
+                "key": "destroyCount",
+                "displayname": "destroy connections size",
+                "color": "#FF6666",
+                "seriestype": "bar"
+          }
+        ]
+      }
+      ]
+    }
+}

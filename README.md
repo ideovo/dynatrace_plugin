@@ -1,8 +1,9 @@
 # dynatrace_plugin 简明说明手册
 ## common pool2控件（V2.1.1）
+目前支持BasicDataSource和PoolingDataSource两种数据库联接池，特别注意使用BasicDataSource功能需要注册其jmxname为org.apache.commons.dbcp2:type=basic
 ### 1.jmx监控属性说明
-- **FactoryType**: org.apache.commpons.dpcp2/（静态）
-- **maxTotal**:允许创建的最大连接对象数量，-1代表不限（静态）
+- **FactoryType**: org.apache.commpons.dpcp2/org.apache.commpons.pool2（静态）
+- **maxTotal**:允许创建的最大连接对象数量，-1代表不限（静态）S
 - **maxWaitMillis**:获取资源时的等待时间，单位ms。当blockWhenExhausted 配置为 true时，此值有效。-1代表无时间限制，一直阻塞直到有可用的资源。(静态)
 - **maxIdle**：最大空闲资源数，默认8（静态）
 - **minIdle**：最小空闲资源数，默认值0（静态）
